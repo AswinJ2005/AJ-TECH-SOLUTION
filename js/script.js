@@ -130,18 +130,27 @@ document.addEventListener('DOMContentLoaded', () => {
             updateThemeIcon();
         }
 
-        // UI Version Toggle listener
+        // UI Version Toggle listener (Local Preview)
         const uiSelect = document.getElementById('ui-version-select');
         if (uiSelect) {
             uiSelect.addEventListener('change', (e) => {
                 const newVersion = e.target.value;
+                applyUIVersion(newVersion);
+            });
+        }
+
+        // UI Save Theme Button (Global Save)
+        const uiSaveBtn = document.getElementById('admin-ui-save-btn');
+        if (uiSaveBtn && uiSelect) {
+            uiSaveBtn.addEventListener('click', () => {
+                const newVersion = uiSelect.value;
                 if(db) {
                     db.collection('settings').doc('uiConfig').set({ version: newVersion }, { merge: true })
                       .then(() => {
-                          if (typeof showToast === 'function') showToast('UI Version updated to ' + newVersion, 'success');
+                          if (typeof showToast === 'function') showToast('Theme saved globally as ' + newVersion, 'success');
                       })
                       .catch(err => {
-                          if (typeof showToast === 'function') showToast('Failed to update UI: ' + err.message, 'error');
+                          if (typeof showToast === 'function') showToast('Failed to save theme: ' + err.message, 'error');
                       });
                 }
             });
