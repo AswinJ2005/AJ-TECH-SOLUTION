@@ -21,6 +21,21 @@
     <link rel="stylesheet" id="theme-stylesheet" href="style.css?v=1.2">
 </head>
 <body>
+    <!-- Floating Admin Toolbar (Visible only when logged in) -->
+    <div id="admin-toolbar" class="admin-controls" style="display: none; position: fixed; top: 0; left: 0; width: 100%; background: #111; color: #fff; z-index: 9999; padding: 10px 20px; align-items: center; justify-content: space-between; border-bottom: 2px solid #00BFFF; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+        <div style="font-weight: bold; color: #00BFFF;">🔧 Admin Dashboard Active</div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <div id="admin-ui-toggle-container">
+                <label for="ui-version-select" style="font-size: 0.9rem; margin-right: 5px;">UI Version:</label>
+                <select id="ui-version-select" style="background: #222; color: #fff; border: 1px solid #444; padding: 5px; border-radius: 4px;">
+                    <option value="v1">Version 1 (Classic)</option>
+                    <option value="v2">Version 2 (Modern Premium)</option>
+                </select>
+            </div>
+            <button id="admin-logout-top-btn" style="background: #FF3B30; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">Logout</button>
+        </div>
+    </div>
+
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
     <div id="particles-js"></div>
@@ -215,14 +230,7 @@
             </div>
             <div class="footer-bottom-bar">
                 <p class="footer-copyright">© 2025 AJ Tech Solutions</p>
-                <div class="footer-admin-login" style="display: flex; gap: 1rem; align-items: center;">
-                    <div id="admin-ui-toggle-container" class="admin-controls" style="display: none; position: static; box-shadow: none; border: none; padding: 0;">
-                        <label for="ui-version-select" style="color: var(--text-mid); font-size: 0.9rem;">UI Version:</label>
-                        <select id="ui-version-select" style="background: var(--bg-dark); color: var(--text-light); border: 1px solid var(--border-color); padding: 0.3rem; border-radius: 5px; font-size: 0.9rem;">
-                            <option value="v1">Version 1 (Classic)</option>
-                            <option value="v2">Version 2 (Modern Premium)</option>
-                        </select>
-                    </div>
+                <div class="footer-admin-login">
                     <button id="admin-login-logout-btn">Admin Login</button>
                 </div>
             </div>

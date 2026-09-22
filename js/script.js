@@ -146,6 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
+        // Floating admin toolbar logout
+        const topLogoutBtn = document.getElementById('admin-logout-top-btn');
+        if (topLogoutBtn) {
+            topLogoutBtn.addEventListener('click', () => {
+                if(auth) {
+                    auth.signOut().then(() => {
+                        if (typeof showToast === 'function') showToast('Logged out successfully', 'success');
+                    });
+                }
+            });
+        }
     }
 
     // --- UI VERSION CONTROLLER ---
