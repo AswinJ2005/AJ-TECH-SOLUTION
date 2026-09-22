@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 db = firebase.firestore();
                 auth = firebase.auth();
                 monitorAuthState();
+                monitorUIVersion();
             } catch (error) {
                 console.error("Firebase initialization failed:", error);
                 runSimulations();
@@ -127,6 +128,47 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Set initial icon based on current theme
             updateThemeIcon();
+        }
+
+        // UI Version Toggle listener
+        const uiSelect = document.getElementById('ui-version-select');
+        if (uiSelect) {
+            uiSelect.addEventListener('change', (e) => {
+                const newVersion = e.target.value;
+                if(db) {
+                    db.collection('settings').doc('uiConfig').set({ version: newVersion }, { merge: true })
+                      .then(() => {
+                          if (typeof showToast === 'function') showToast('UI Version updated to ' + newVersion, 'success');
+                      })
+                      .catch(err => {
+                          if (typeof showToast === 'function') showToast('Failed to update UI: ' + err.message, 'error');
+                      });
+                }
+            });
+        }
+    }
+
+    // --- UI VERSION CONTROLLER ---
+    function monitorUIVersion() {
+        if (!db) return;
+        db.collection('settings').doc('uiConfig').onSnapshot(doc => {
+            if (doc.exists) {
+                const version = doc.data().version || 'v1';
+                applyUIVersion(version);
+                const uiSelect = document.getElementById('ui-version-select');
+                if (uiSelect) uiSelect.value = version;
+            }
+        });
+    }
+
+    function applyUIVersion(version) {
+        const themeLink = document.getElementById('theme-stylesheet');
+        if (themeLink) {
+            if (version === 'v2') {
+                themeLink.href = 'style-v2.css?v=1.0';
+            } else {
+                themeLink.href = 'style.css?v=1.2';
+            }
         }
     }
 
