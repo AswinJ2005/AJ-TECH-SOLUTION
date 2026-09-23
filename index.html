@@ -345,9 +345,12 @@
                 <label for="project-admin-link">Admin Link (Optional)</label><input type="url" id="project-admin-link">
                 <label for="project-grid-size">Grid Columns (e.g. 2, 3, 4)</label>
                 <input type="number" id="project-grid-size" min="1" max="6" value="2">
-                <label for="project-image-count">Number of Gallery Images</label>
-                <input type="number" id="project-image-count" min="0" max="20" value="0">
-                <div id="gallery-inputs-container" style="display:flex; flex-direction:column; gap:10px;"></div>
+                <label for="project-client-image-count">Number of Client Side Images</label>
+                <input type="number" id="project-client-image-count" min="0" max="20" value="0">
+                <div id="client-gallery-inputs-container" style="display:flex; flex-direction:column; gap:10px; margin-bottom: 15px;"></div>
+                <label for="project-admin-image-count">Number of Admin Panel Images</label>
+                <input type="number" id="project-admin-image-count" min="0" max="20" value="0">
+                <div id="admin-gallery-inputs-container" style="display:flex; flex-direction:column; gap:10px;"></div>
                 <label for="project-description">Description</label><textarea id="project-description" rows="4" required></textarea>
                 <button type="submit">Save Project</button>
             </form>

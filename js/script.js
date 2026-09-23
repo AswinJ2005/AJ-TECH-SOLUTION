@@ -476,6 +476,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openProjectModal(data) {
+        const clientImages = data ? (data.clientGalleryImages || data.galleryImages || []) : [];
+        const adminImages = data ? (data.adminGalleryImages || []) : [];
+        
         populateForm('project-form', data ? { 
             'project-id': data.id, 
             'project-title': data.title, 
@@ -483,13 +486,16 @@ document.addEventListener('DOMContentLoaded', () => {
             'project-link': data.projectLink,
             'project-admin-link': data.adminLink,
             'project-grid-size': data.gridSize || 2,
-            'project-image-count': data.galleryImages ? data.galleryImages.length : 0,
+            'project-client-image-count': clientImages.length,
+            'project-admin-image-count': adminImages.length,
             'project-description': data.description 
         } : {
             'project-grid-size': 2,
-            'project-image-count': 0
+            'project-client-image-count': 0,
+            'project-admin-image-count': 0
         }); 
-        generateGalleryInputs(data && data.galleryImages ? data.galleryImages.length : 0, data ? data.galleryImages : []);
+        generateGalleryInputs(clientImages.length, 'client-gallery-inputs-container', clientImages, 'Client Image');
+        generateGalleryInputs(adminImages.length, 'admin-gallery-inputs-container', adminImages, 'Admin Image');
         document.getElementById('project-modal-title').innerText = data ? 'Edit Project' : 'Add Project'; 
         openModal('project-modal');
     }
@@ -825,19 +831,22 @@ document.addEventListener('click', function(e) {
         }); 
     }
 
-    function generateGalleryInputs(count, existingUrls = []) {
-        const container = document.getElementById('gallery-inputs-container');
+    function generateGalleryInputs(count, containerId, existingUrls = [], placeholderPrefix = "Image") {
+        const container = document.getElementById(containerId);
         if (!container) return;
         container.innerHTML = '';
         for (let i = 0; i < count; i++) {
             const val = existingUrls[i] || '';
-            container.innerHTML += `<input type="url" class="gallery-input" placeholder="Image ${i + 1} URL" value="${val}">`;
+            container.innerHTML += `<input type="url" class="gallery-input" placeholder="${placeholderPrefix} ${i + 1} URL" value="${val}">`;
         }
     }
 
     function handleSaveProject(e) { 
-        const galleryInputs = document.querySelectorAll('#gallery-inputs-container .gallery-input');
-        const galleryImages = Array.from(galleryInputs).map(input => input.value).filter(url => url.trim() !== '');
+        const clientInputs = document.querySelectorAll('#client-gallery-inputs-container .gallery-input');
+        const clientImages = Array.from(clientInputs).map(input => input.value).filter(url => url.trim() !== '');
+        
+        const adminInputs = document.querySelectorAll('#admin-gallery-inputs-container .gallery-input');
+        const adminImages = Array.from(adminInputs).map(input => input.value).filter(url => url.trim() !== '');
         
         handleSave(e, 'projects', { 
             id: document.getElementById('project-id').value, 
@@ -846,7 +855,8 @@ document.addEventListener('click', function(e) {
             projectLink: document.getElementById('project-link').value, 
             adminLink: document.getElementById('project-admin-link').value,
             gridSize: parseInt(document.getElementById('project-grid-size').value) || 2,
-            galleryImages: galleryImages,
+            clientGalleryImages: clientImages,
+            adminGalleryImages: adminImages,
             description: document.getElementById('project-description').value 
         }); 
     }
@@ -1309,13 +1319,23 @@ document.addEventListener('click', function(e) {
         // ...existing code...
     });
 
-    const projectImageCount = document.getElementById('project-image-count');
-    if (projectImageCount) {
-        projectImageCount.addEventListener('input', (e) => {
+    const clientImageCount = document.getElementById('project-client-image-count');
+    if (clientImageCount) {
+        clientImageCount.addEventListener('input', (e) => {
             const count = parseInt(e.target.value) || 0;
-            const existingInputs = document.querySelectorAll('#gallery-inputs-container .gallery-input');
+            const existingInputs = document.querySelectorAll('#client-gallery-inputs-container .gallery-input');
             const existingUrls = Array.from(existingInputs).map(input => input.value);
-            generateGalleryInputs(count, existingUrls);
+            generateGalleryInputs(count, 'client-gallery-inputs-container', existingUrls, 'Client Image');
+        });
+    }
+
+    const adminImageCount = document.getElementById('project-admin-image-count');
+    if (adminImageCount) {
+        adminImageCount.addEventListener('input', (e) => {
+            const count = parseInt(e.target.value) || 0;
+            const existingInputs = document.querySelectorAll('#admin-gallery-inputs-container .gallery-input');
+            const existingUrls = Array.from(existingInputs).map(input => input.value);
+            generateGalleryInputs(count, 'admin-gallery-inputs-container', existingUrls, 'Admin Image');
         });
     }
 

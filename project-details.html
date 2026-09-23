@@ -201,8 +201,19 @@
                     <!-- Buttons will be injected here by JS -->
                 </div>
                 
-                <div id="pd-gallery" class="pd-gallery">
-                    <!-- Gallery images will be injected here -->
+                <div id="client-gallery-section" style="display: none; margin-top: 60px;">
+                    <h3 style="color: var(--primary-blue); margin-bottom: 20px; font-family: var(--font-heading);">Client Side</h3>
+                    <div id="pd-client-gallery" class="pd-gallery" style="margin-top: 0;"></div>
+                </div>
+                
+                <div id="admin-gallery-section" style="display: none; margin-top: 60px;">
+                    <h3 style="color: var(--primary-blue); margin-bottom: 20px; font-family: var(--font-heading);">Admin Panel</h3>
+                    <div id="pd-admin-gallery" class="pd-gallery" style="margin-top: 0;"></div>
+                </div>
+                
+                <div id="legacy-gallery-section" style="display: none; margin-top: 60px;">
+                    <h3 style="color: var(--primary-blue); margin-bottom: 20px; font-family: var(--font-heading);">Project Gallery</h3>
+                    <div id="pd-gallery" class="pd-gallery" style="margin-top: 0;"></div>
                 </div>
             </div>
         </section>
@@ -296,13 +307,36 @@
                             actionsContainer.innerHTML += `<a href="${data.adminLink}" target="_blank" class="pd-btn pd-btn-admin"><i class="fas fa-lock"></i> Admin Panel – CEO Permission Required to Access</a>`;
                         }
                         
-                        const galleryContainer = document.getElementById('pd-gallery');
-                        galleryContainer.innerHTML = '';
-                        if (data.galleryImages && data.galleryImages.length > 0) {
-                            const columns = data.gridSize || 2;
-                            galleryContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-                            data.galleryImages.forEach(url => {
-                                galleryContainer.innerHTML += `<img src="${url}" alt="Project Gallery Image">`;
+                        const clientImages = data.clientGalleryImages || [];
+                        const adminImages = data.adminGalleryImages || [];
+                        const legacyImages = data.galleryImages || [];
+                        const columns = data.gridSize || 2;
+                        
+                        if (clientImages.length > 0) {
+                            document.getElementById('client-gallery-section').style.display = 'block';
+                            const cg = document.getElementById('pd-client-gallery');
+                            cg.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+                            clientImages.forEach(url => {
+                                cg.innerHTML += `<img src="${url}" alt="Client Side Image">`;
+                            });
+                        }
+                        
+                        if (adminImages.length > 0) {
+                            document.getElementById('admin-gallery-section').style.display = 'block';
+                            const ag = document.getElementById('pd-admin-gallery');
+                            ag.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+                            adminImages.forEach(url => {
+                                ag.innerHTML += `<img src="${url}" alt="Admin Panel Image">`;
+                            });
+                        }
+                        
+                        // Fallback for old projects
+                        if (legacyImages.length > 0 && clientImages.length === 0 && adminImages.length === 0) {
+                            document.getElementById('legacy-gallery-section').style.display = 'block';
+                            const lg = document.getElementById('pd-gallery');
+                            lg.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
+                            legacyImages.forEach(url => {
+                                lg.innerHTML += `<img src="${url}" alt="Project Gallery Image">`;
                             });
                         }
                         
