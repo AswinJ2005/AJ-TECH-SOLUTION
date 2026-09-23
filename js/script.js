@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
             db.collection(collection).onSnapshot(snapshot => {
                 const data = [];
                 snapshot.forEach(doc => {
-                    if (doc.id !== 'uiConfig') data.push({ id: doc.id, ...doc.data() });
+                    if (doc.id !== 'uiConfig') data.push({ ...doc.data(), id: doc.id });
                 });
                 data.sort((a, b) => (a.order || 0) - (b.order || 0));
                 renderFunction(data);
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         db.collection(collection).orderBy(orderByField).onSnapshot(snapshot => {
             const data = [];
             snapshot.forEach(doc => {
-                if (doc.id !== 'uiConfig') data.push({ id: doc.id, ...doc.data() });
+                if (doc.id !== 'uiConfig') data.push({ ...doc.data(), id: doc.id });
             });
             renderFunction(data);
         }, error => console.error(`Error loading ${collection}:`, error));
@@ -700,10 +700,14 @@ document.addEventListener('click', function(e) {
     const Firebase = {
         async saveDocument(collection, data) {
             if (!db) throw new Error("No database connection.");
-            if (data.id) {
-                await db.collection(collection).doc(data.id).set(data, { merge: true });
+            const docId = data.id;
+            const dataToSave = { ...data };
+            delete dataToSave.id; // Prevent saving empty 'id' strings into the database document
+
+            if (docId) {
+                await db.collection(collection).doc(docId).set(dataToSave, { merge: true });
             } else {
-                await db.collection(collection).add(data);
+                await db.collection(collection).add(dataToSave);
             }
         },
         async deleteDocument(collection, id) {
