@@ -151,6 +151,98 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        /* Lightbox CSS */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(5px);
+        }
+        
+        .lightbox-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+            max-height: 80vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+        }
+        
+        .lightbox-close:hover {
+            color: var(--primary-blue);
+        }
+        
+        .lightbox-prev, .lightbox-next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            transition: 0.3s ease;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+            border-radius: 5px;
+            z-index: 10001;
+        }
+        
+        .lightbox-prev {
+            left: 20px;
+        }
+        
+        .lightbox-next {
+            right: 20px;
+        }
+        
+        .lightbox-prev:hover, .lightbox-next:hover {
+            background-color: var(--primary-blue);
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            font-family: var(--font-heading);
+            background: rgba(0,0,0,0.6);
+            padding: 10px 20px;
+            border-radius: 30px;
+        }
+
+        .pd-gallery img {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -249,6 +341,15 @@
         </div>
     </footer>
 
+    <!-- Lightbox Modal -->
+    <div id="gallery-lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-prev" id="lightbox-prev">&#10094;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <span class="lightbox-next" id="lightbox-next">&#10095;</span>
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
     <script src="js/firebase-config.js"></script>
     
     <!-- Firebase SDKs -->
@@ -339,6 +440,74 @@
                                 lg.innerHTML += `<img src="${url}" alt="Project Gallery Image">`;
                             });
                         }
+                        
+                        // Initialize Lightbox Flow
+                        const allGalleryImages = Array.from(document.querySelectorAll('.pd-gallery img'));
+                        let currentLightboxIndex = 0;
+                        const lightbox = document.getElementById('gallery-lightbox');
+                        const lightboxImg = document.getElementById('lightbox-img');
+                        const lightboxCaption = document.getElementById('lightbox-caption');
+
+                        if (allGalleryImages.length > 0) {
+                            allGalleryImages.forEach((img, index) => {
+                                img.addEventListener('click', () => {
+                                    openLightbox(index);
+                                });
+                            });
+                        }
+
+                        function openLightbox(index) {
+                            currentLightboxIndex = index;
+                            updateLightboxImage();
+                            lightbox.style.display = 'block';
+                            document.body.style.overflow = 'hidden'; // Prevent scrolling
+                        }
+
+                        function updateLightboxImage() {
+                            const targetImg = allGalleryImages[currentLightboxIndex];
+                            if (!targetImg) return;
+                            lightboxImg.src = targetImg.src;
+                            lightboxCaption.innerText = targetImg.alt || "Project Image";
+                        }
+
+                        function closeLightbox() {
+                            lightbox.style.display = 'none';
+                            document.body.style.overflow = 'auto'; // Restore scrolling
+                        }
+
+                        document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+                        
+                        document.getElementById('lightbox-prev').addEventListener('click', (e) => {
+                            e.stopPropagation(); 
+                            currentLightboxIndex = (currentLightboxIndex - 1 + allGalleryImages.length) % allGalleryImages.length;
+                            updateLightboxImage();
+                        });
+                        
+                        document.getElementById('lightbox-next').addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            currentLightboxIndex = (currentLightboxIndex + 1) % allGalleryImages.length;
+                            updateLightboxImage();
+                        });
+                        
+                        lightbox.addEventListener('click', (e) => {
+                            if (e.target === lightbox) {
+                                closeLightbox();
+                            }
+                        });
+                        
+                        document.addEventListener('keydown', (e) => {
+                            if (lightbox.style.display === 'block') {
+                                if (e.key === 'Escape') closeLightbox();
+                                if (e.key === 'ArrowLeft') {
+                                    currentLightboxIndex = (currentLightboxIndex - 1 + allGalleryImages.length) % allGalleryImages.length;
+                                    updateLightboxImage();
+                                }
+                                if (e.key === 'ArrowRight') {
+                                    currentLightboxIndex = (currentLightboxIndex + 1) % allGalleryImages.length;
+                                    updateLightboxImage();
+                                }
+                            }
+                        });
                         
                     } else {
                         document.getElementById('pd-loading').style.display = 'none';
