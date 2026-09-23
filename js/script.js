@@ -464,6 +464,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'project-image-url': data.imageUrl,
             'project-link': data.projectLink,
             'project-admin-link': data.adminLink,
+            'project-gallery-1': (data.galleryImages && data.galleryImages[0]) ? data.galleryImages[0] : '',
+            'project-gallery-2': (data.galleryImages && data.galleryImages[1]) ? data.galleryImages[1] : '',
+            'project-gallery-3': (data.galleryImages && data.galleryImages[2]) ? data.galleryImages[2] : '',
+            'project-gallery-4': (data.galleryImages && data.galleryImages[3]) ? data.galleryImages[3] : '',
             'project-description': data.description 
         } : {}); 
         document.getElementById('project-modal-title').innerText = data ? 'Edit Project' : 'Add Project'; 
@@ -802,12 +806,19 @@ document.addEventListener('click', function(e) {
     }
 
     function handleSaveProject(e) { 
+        const g1 = document.getElementById('project-gallery-1').value;
+        const g2 = document.getElementById('project-gallery-2').value;
+        const g3 = document.getElementById('project-gallery-3').value;
+        const g4 = document.getElementById('project-gallery-4').value;
+        const galleryImages = [g1, g2, g3, g4].filter(url => url.trim() !== '');
+        
         handleSave(e, 'projects', { 
             id: document.getElementById('project-id').value, 
             title: document.getElementById('project-title').value, 
             imageUrl: document.getElementById('project-image-url').value, 
             projectLink: document.getElementById('project-link').value, 
             adminLink: document.getElementById('project-admin-link').value,
+            galleryImages: galleryImages,
             description: document.getElementById('project-description').value 
         }); 
     }
