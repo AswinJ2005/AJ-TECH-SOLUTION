@@ -769,23 +769,15 @@ document.addEventListener('click', function(e) {
     }
 
     function handleDelete(id, type, coll) {
-        // Prevent empty id deletion
         if (!id) {
-            // Prefer toast if available, else do nothing
-            if (typeof showToast === "function") {
-                showToast("Delete failed: Document ID is missing.", "error");
-            }
-            // Optionally, you can log for debugging:
-            // console.error("Delete failed: Document ID is missing.");
+            alert("Delete failed: Document ID is missing.");
             return;
         }
         if (confirm(`Delete this ${type}?`)) {
-            Firebase.deleteDocument(coll, id).catch(err => {
-                if (typeof showToast === "function") {
-                    showToast(`Error: ${err.message}`, "error");
-                } else {
-                    alert(`Error: ${err.message}`);
-                }
+            Firebase.deleteDocument(coll, id).then(() => {
+                alert(`Successfully deleted ${type}.`);
+            }).catch(err => {
+                alert(`Error deleting ${type}: ${err.message}`);
             });
         }
     }
