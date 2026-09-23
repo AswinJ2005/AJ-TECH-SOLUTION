@@ -1000,6 +1000,17 @@ body.light-theme .footer-logo {
         margin-top: 10px;
         justify-content: center;
     }
+    
+    /* Mobile Team Toggle */
+    #mobile-team-toggle {
+        display: flex !important;
+    }
+    #team-grid {
+        display: none;
+    }
+    #team-grid.show-on-mobile {
+        display: grid;
+    }
 }
 
 /* Small mobile devices */

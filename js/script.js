@@ -1333,4 +1333,17 @@ document.addEventListener('click', function(e) {
         }
     });
 
+    const mobileTeamToggle = document.getElementById('mobile-team-toggle');
+    if (mobileTeamToggle) {
+        mobileTeamToggle.addEventListener('click', function() {
+            const grid = document.getElementById('team-grid');
+            grid.classList.toggle('show-on-mobile');
+            if (grid.classList.contains('show-on-mobile')) {
+                this.innerHTML = 'Hide core team <i class="fas fa-chevron-up"></i>';
+            } else {
+                this.innerHTML = 'Click to view our core team <i class="fas fa-chevron-down"></i>';
+            }
+        });
+    }
+
 }); // Close DOMContentLoaded event listener
