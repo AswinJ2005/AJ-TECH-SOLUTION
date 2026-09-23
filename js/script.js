@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             uiSaveBtn.addEventListener('click', () => {
                 const newVersion = uiSelect.value;
                 if(db) {
-                    db.collection('settings').doc('uiConfig').set({ version: newVersion }, { merge: true })
+                    db.collection('projects').doc('uiConfig').set({ version: newVersion }, { merge: true })
                       .then(() => {
                           alert('Theme saved globally as ' + newVersion);
                       })
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- UI VERSION CONTROLLER ---
     function monitorUIVersion() {
         if (!db) return;
-        db.collection('settings').doc('uiConfig').onSnapshot(doc => {
+        db.collection('projects').doc('uiConfig').onSnapshot(doc => {
             if (doc.exists) {
                 const version = doc.data().version || 'v1';
                 applyUIVersion(version);
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (uiSelect) uiSelect.value = version;
             }
         }, err => {
-            console.error("Firestore read error on settings/uiConfig: ", err);
+            console.error("Firestore read error on projects/uiConfig: ", err);
         });
     }
 
@@ -196,12 +196,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- REALTIME DATA LOADING ---
-    const loadDynamicSection = (collectionName, orderByField, renderFunction) => {
+    function loadDynamicSection(collection, orderByField, renderFunction) {
         if (!db) return;
-        db.collection(collectionName).orderBy(orderByField).onSnapshot(snapshot => {
-            renderFunction(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
-        }, err => console.error(`Error fetching ${collectionName}:`, err));
-    };
+        db.collection(collection).orderBy(orderByField).onSnapshot(snapshot => {
+            const data = [];
+            snapshot.forEach(doc => {
+                if (doc.id !== 'uiConfig') {
+                    data.push({ id: doc.id, ...doc.data() });
+                }
+            });
+            renderFunction(data);
+        }, error => {
+            console.error(`Error loading ${collection}:`, error);
+        });
+    }
 
     // --- DYNAMIC CONTENT RENDERING ---
     function renderWhyChooseUs(data) {
