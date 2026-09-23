@@ -256,11 +256,11 @@
                         actionsContainer.innerHTML = ''; // Clear
                         
                         if (data.projectLink) {
-                            actionsContainer.innerHTML += `<a href="${data.projectLink}" target="_blank" class="pd-btn pd-btn-primary"><i class="fas fa-external-link-alt"></i> Visit Website</a>`;
+                            actionsContainer.innerHTML += `<a href="${data.projectLink}" target="_blank" class="pd-btn pd-btn-primary"><i class="fas fa-external-link-alt"></i> View ${data.title || 'Project'} Website</a>`;
                         }
                         
                         if (data.adminLink) {
-                            actionsContainer.innerHTML += `<a href="${data.adminLink}" target="_blank" class="pd-btn pd-btn-admin"><i class="fas fa-lock"></i> Admin Panel</a>`;
+                            actionsContainer.innerHTML += `<a href="${data.adminLink}" target="_blank" class="pd-btn pd-btn-admin"><i class="fas fa-lock"></i> Admin Panel – CEO Permission Required to Access</a>`;
                         }
                         
                     } else {
