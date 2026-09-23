@@ -251,8 +251,11 @@ body.light-theme .footer-logo {
 
 .founder-bio { text-align: left; }
 .founder-quote { font-style: italic; color: var(--primary-green); margin: 1.5rem 0; padding-left: 1rem; border-left: 2px solid var(--primary-green); }
-.team-grid-layout { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
-.team-card { width: 100%; max-width: 700px; background: linear-gradient(145deg, var(--card-color) 0%, hsla(0, 0%, 1%, 0.278) 100%); }
+.team-grid-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 768px) {
+    .team-grid-layout { grid-template-columns: repeat(2, 1fr); }
+}
+.team-card { width: 100%; background: linear-gradient(145deg, var(--card-color) 0%, hsla(0, 0%, 1%, 0.278) 100%); }
 
 .team-photo, .team-photo-placeholder { 
     width: 150px; 
