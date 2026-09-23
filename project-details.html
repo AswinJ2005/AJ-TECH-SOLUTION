@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Details | AJ Tech Solutions</title>
+    <meta name="description" content="AJ Tech Solutions Project Details.">
+    <link rel="icon" type="image/png" href="assets/favicon.png"> 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" id="theme-stylesheet" href="style.css?v=1.3">
+    
+    <style>
+        .project-details-container {
+            padding: 120px 20px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 80vh;
+        }
+        
+        #pd-loading {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            padding: 50px;
+        }
+        
+        #pd-error {
+            display: none;
+            text-align: center;
+            color: var(--error-color);
+            padding: 50px;
+        }
+        
+        #pd-content {
+            display: none;
+        }
+        
+        .pd-image-wrapper {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
+        
+        .pd-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .pd-title {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+        
+        .pd-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            white-space: pre-wrap;
+        }
+        
+        .pd-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .pd-btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .pd-btn-primary {
+            background: var(--primary-blue);
+            color: #000;
+        }
+        
+        .pd-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.4);
+        }
+        
+        .pd-btn-admin {
+            background: #FF8C00;
+            color: #000;
+        }
+        
+        .pd-btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-mid);
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Header -->
+    <header class="navbar" style="background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(10px);">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="assets/logo.png" alt="AJ Tech Solutions Logo"></a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#team" class="nav-link">Team</a></li>
+                    <li><a href="index.html#project" class="nav-link">Project</a></li>
+                    <li><a href="index.html#careers" class="nav-link">Careers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="project-details-container">
+            <a href="index.html#project" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+            
+            <div id="pd-loading">Loading project details...</div>
+            
+            <div id="pd-error">
+                <h2>Project Not Found</h2>
+                <p>The project you are looking for does not exist or has been removed.</p>
+            </div>
+            
+            <div id="pd-content">
+                <div class="pd-image-wrapper" id="pd-image-container">
+                    <img id="pd-image" class="pd-image" src="" alt="Project Image">
+                </div>
+                
+                <h1 id="pd-title" class="pd-title">Project Title</h1>
+                
+                <div id="pd-description" class="pd-description">
+                    Project description goes here...
+                </div>
+                
+                <div class="pd-actions" id="pd-actions">
+                    <!-- Buttons will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="AJ Tech Solutions">
+                <p>Building the Unbuilt Future</p>
+            </div>
+            <div class="footer-socials">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 AJ Tech Solutions. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
+    <!-- Main Application Script (Needed for Firebase init) -->
+    <script src="js/script.js?v=1.5"></script>
+    
+    <!-- Project Details Specific Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            
+            if (!projectId) {
+                document.getElementById('pd-loading').style.display = 'none';
+                document.getElementById('pd-error').style.display = 'block';
+                return;
+            }
+            
+            // Wait for Firebase to initialize from script.js
+            const checkFirebase = setInterval(() => {
+                if (window.db) {
+                    clearInterval(checkFirebase);
+                    loadProjectData(projectId);
+                }
+            }, 100);
+            
+            function loadProjectData(id) {
+                window.db.collection('projects').doc(id).get().then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        
+                        document.getElementById('pd-loading').style.display = 'none';
+                        document.getElementById('pd-content').style.display = 'block';
+                        
+                        document.getElementById('pd-title').innerText = data.title || 'Untitled Project';
+                        document.getElementById('pd-description').innerText = data.description || 'No description available.';
+                        
+                        if (data.imageUrl) {
+                            document.getElementById('pd-image').src = data.imageUrl;
+                        } else {
+                            document.getElementById('pd-image-container').style.display = 'none';
+                        }
+                        
+                        const actionsContainer = document.getElementById('pd-actions');
+                        actionsContainer.innerHTML = ''; // Clear
+                        
+                        if (data.projectLink) {
+                            actionsContainer.innerHTML += `<a href="${data.projectLink}" target="_blank" class="pd-btn pd-btn-primary"><i class="fas fa-external-link-alt"></i> Visit Website</a>`;
+                        }
+                        
+                        if (data.adminLink) {
+                            actionsContainer.innerHTML += `<a href="${data.adminLink}" target="_blank" class="pd-btn pd-btn-admin"><i class="fas fa-lock"></i> Admin Panel</a>`;
+                        }
+                        
+                    } else {
+                        document.getElementById('pd-loading').style.display = 'none';
+                        document.getElementById('pd-error').style.display = 'block';
+                    }
+                }).catch(err => {
+                    console.error("Error fetching project:", err);
+                    document.getElementById('pd-loading').style.display = 'none';
+                    document.getElementById('pd-error').style.display = 'block';
+                    document.getElementById('pd-error').innerHTML += `<p>${err.message}</p>`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

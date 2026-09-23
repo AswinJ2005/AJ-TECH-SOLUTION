@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${project.description}</p>
                 </div>
                 <div class="project-overlay">
-                    <a href="${project.projectLink || '#'}" class="case-study-button" ${project.projectLink ? 'target="_blank"' : 'onclick="event.preventDefault();"'}>View Project Details</a>
+                    <a href="project-details.html?id=${project.id}" class="case-study-button">View Project Details</a>
                 </div>
                 <div class="admin-controls" style="display:${isAdminLoggedIn ? 'flex' : 'none'};">
                     <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
@@ -462,6 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'project-title': data.title, 
             'project-image-url': data.imageUrl,
             'project-link': data.projectLink,
+            'project-admin-link': data.adminLink,
             'project-description': data.description 
         } : {}); 
         document.getElementById('project-modal-title').innerText = data ? 'Edit Project' : 'Add Project'; 
@@ -800,12 +801,12 @@ document.addEventListener('click', function(e) {
     }
 
     function handleSaveProject(e) { 
-        const linkEl = document.getElementById('project-link');
-        handleSave(e, 'projects', {
+        handleSave(e, 'projects', { 
             id: document.getElementById('project-id').value, 
             title: document.getElementById('project-title').value, 
             imageUrl: document.getElementById('project-image-url').value, 
-            projectLink: linkEl ? linkEl.value : '',
+            projectLink: document.getElementById('project-link').value, 
+            adminLink: document.getElementById('project-admin-link').value,
             description: document.getElementById('project-description').value 
         }); 
     }
