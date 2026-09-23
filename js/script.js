@@ -147,10 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if(db) {
                     db.collection('settings').doc('uiConfig').set({ version: newVersion }, { merge: true })
                       .then(() => {
-                          if (typeof showToast === 'function') showToast('Theme saved globally as ' + newVersion, 'success');
+                          alert('Theme saved globally as ' + newVersion);
                       })
                       .catch(err => {
-                          if (typeof showToast === 'function') showToast('Failed to save theme: ' + err.message, 'error');
+                          alert('Failed to save theme (Check Firestore Rules): ' + err.message);
                       });
                 }
             });
@@ -179,6 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const uiSelect = document.getElementById('ui-version-select');
                 if (uiSelect) uiSelect.value = version;
             }
+        }, err => {
+            console.error("Firestore read error on settings/uiConfig: ", err);
         });
     }
 
