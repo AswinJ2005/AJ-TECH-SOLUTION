@@ -41,23 +41,7 @@
     <div class="cursor-outline"></div>
     <div id="particles-js"></div>
 
-    <!-- Founder Modal -->
-    <div id="founder-modal" class="modal">
-        <div class="modal-content">
-            <button class="close-modal-btn">x</button>
-            <h2>Edit Founder Info</h2>
-            <form id="founder-form">
-                <div class="form-feedback"></div>
-                <label for="founder-title">Name & Title</label><input type="text" id="founder-title" required>
-                <label for="founder-p1">Paragraph 1</label><textarea id="founder-p1" rows="4" required></textarea>
-                <label for="founder-p2">Paragraph 2</label><textarea id="founder-p2" rows="4" required></textarea>
-                <label for="founder-quote">Quote</label><input type="text" id="founder-quote" required>
-                <label for="founder-photo-url">Photo URL</label><input type="url" id="founder-photo-url">
-                <button type="submit">Save Founder Info</button>
-            </form>
-        </div>
-    </div>
-
+    
     <!-- Header -->
     <header class="navbar">
         <div class="nav-container">
@@ -258,6 +242,23 @@
     
     <!-- All Modals are placed here -->
     <div id="modal-backdrop" class="modal-backdrop">
+        <!-- Founder Modal -->
+        <div id="founder-modal" class="modal">
+            <div class="modal-content">
+                <button class="close-modal-btn">x</button>
+                <h2>Edit Founder Info</h2>
+                <form id="founder-form">
+                    <div class="form-feedback"></div>
+                    <label for="founder-title">Name & Title</label><input type="text" id="founder-title" required>
+                    <label for="founder-p1">Paragraph 1</label><textarea id="founder-p1" rows="4" required></textarea>
+                    <label for="founder-p2">Paragraph 2</label><textarea id="founder-p2" rows="4" required></textarea>
+                    <label for="founder-quote">Quote</label><input type="text" id="founder-quote" required>
+                    <label for="founder-photo-url">Photo URL</label><input type="url" id="founder-photo-url">
+                    <button type="submit">Save Founder Info</button>
+                </form>
+            </div>
+        </div>
+
         <div class="modal" id="login-modal">
             <button class="close-modal-btn">×</button>
             <h3>Admin Login</h3>
