@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     initializeFirebase();
 
+    // Check for secret admin login URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('admin') === 'login') {
+        setTimeout(() => openModal('login-modal'), 500);
+    }
+
     // --- SETUP FUNCTIONS ---
     function initializeLibraries() {
         if (window.innerWidth > 768) {
@@ -198,17 +204,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- REALTIME DATA LOADING ---
     function loadDynamicSection(collection, orderByField, renderFunction) {
         if (!db) return;
+        if (orderByField === 'client-order') {
+            db.collection(collection).onSnapshot(snapshot => {
+                const data = [];
+                snapshot.forEach(doc => {
+                    if (doc.id !== 'uiConfig') data.push({ id: doc.id, ...doc.data() });
+                });
+                data.sort((a, b) => (a.order || 0) - (b.order || 0));
+                renderFunction(data);
+            }, error => console.error(`Error loading ${collection}:`, error));
+            return;
+        }
+
         db.collection(collection).orderBy(orderByField).onSnapshot(snapshot => {
             const data = [];
             snapshot.forEach(doc => {
-                if (doc.id !== 'uiConfig') {
-                    data.push({ id: doc.id, ...doc.data() });
-                }
+                if (doc.id !== 'uiConfig') data.push({ id: doc.id, ...doc.data() });
             });
             renderFunction(data);
-        }, error => {
-            console.error(`Error loading ${collection}:`, error);
-        });
+        }, error => console.error(`Error loading ${collection}:`, error));
     }
 
     // --- DYNAMIC CONTENT RENDERING ---
@@ -425,10 +439,13 @@ document.addEventListener('DOMContentLoaded', () => {
             'member-id': data.id, 
             'member-name': data.name, 
             'member-role': data.role, 
+            'member-order': data.order || 0,
             'member-linkedin': data.linkedinUrl, 
             'member-bio': data.bio, 
             'member-photo-url': data.profileImageUrl 
-        } : {}); 
+        } : { 
+            'member-order': teamData.length + 1 
+        }); 
         document.getElementById('team-modal-title').innerText = data ? 'Edit Team Member' : 'Add Team Member'; 
         openModal('team-modal');
     }
@@ -482,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             toggleAdminControls(isAdminLoggedIn);
             loadDynamicSection('whyChooseUs', 'order', renderWhyChooseUs);
-            loadDynamicSection('team', 'name', renderTeam);
+            loadDynamicSection('team', 'client-order', renderTeam);
             loadDynamicSection('projects', 'title', renderProjects);
             loadDynamicSection('careers', 'title', renderCareers);
         });
@@ -722,6 +739,7 @@ document.addEventListener('click', function(e) {
             id: document.getElementById('member-id').value, 
             name: document.getElementById('member-name').value, 
             role: document.getElementById('member-role').value, 
+            order: parseInt(document.getElementById('member-order').value) || 0,
             linkedinUrl: document.getElementById('member-linkedin').value, 
             bio: document.getElementById('member-bio').value, 
             profileImageUrl: document.getElementById('member-photo-url').value 

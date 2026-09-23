@@ -231,9 +231,7 @@
             </div>
             <div class="footer-bottom-bar">
                 <p class="footer-copyright">© 2025 AJ Tech Solutions</p>
-                <div class="footer-admin-login">
-                    <button id="admin-login-logout-btn">Admin Login</button>
-                </div>
+                <!-- Admin login moved to secret URL /admin/login -->
             </div>
         </div>
     </footer>
@@ -285,6 +283,7 @@
                 <div class="form-feedback"></div><input type="hidden" id="member-id">
                 <label for="member-name">Name</label><input type="text" id="member-name" required>
                 <label for="member-role">Role / Position</label><input type="text" id="member-role" required>
+                <label for="member-order">Order Number</label><input type="number" id="member-order" value="0" placeholder="0 (Lowest appears first)" required>
                 <label for="member-linkedin">LinkedIn URL</label><input type="url" id="member-linkedin">
                 <label for="member-bio">Short Bio</label><textarea id="member-bio" rows="4" required></textarea>
                 <label for="member-photo-url">Profile Photo URL</label><input type="url" id="member-photo-url">
