@@ -362,33 +362,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCareers(data) {
         careersData = data;
-        const jobList = document.getElementById('job-listings');
-        const internList = document.getElementById('internship-listings');
-        if (!jobList || !internList) return;
+        const pageListings = document.getElementById('careers-page-listings');
         
-        jobList.innerHTML = ''; 
-        internList.innerHTML = '';
-        
-        data.forEach(career => {
-            const container = career.category === 'Job' ? jobList : internList;
-            const card = document.createElement('div');
-            card.className = 'career-card';
-            card.innerHTML = `
-                <h4>${career.title}</h4>
-                <p>${career.description}</p>
-                <p><strong>Requirements:</strong> ${career.requirements}</p>
-                ${career.experience ? `<p><strong>Experience:</strong> ${career.experience}</p>` : ''}
-                <div class="admin-controls top-right" style="display:${isAdminLoggedIn ? 'flex' : 'none'};">
-                    <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                    <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
-                </div>
-                <button class="apply-now-btn">Apply Now</button>`;
-            container.appendChild(card);
+        // If we're on careers.html, render the listings
+        if (pageListings) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type') || 'Job';
             
-            card.querySelector('.apply-now-btn').addEventListener('click', () => openApplicationModal(career.title));
-            card.querySelector('.edit-btn').addEventListener('click', () => openCareerModal(career));
-            card.querySelector('.delete-btn').addEventListener('click', () => handleDelete(career.id, 'career posting', 'careers'));
-        });
+            // Update title and add button category
+            const titleEl = document.getElementById('careers-page-title');
+            if(titleEl) titleEl.innerText = type === 'Job' ? 'Job Opportunities' : 'Internship Opportunities';
+            
+            const addBtn = document.getElementById('page-add-career-btn');
+            if (addBtn) {
+                addBtn.dataset.category = type;
+                addBtn.style.display = isAdminLoggedIn ? 'inline-block' : 'none';
+            }
+            
+            pageListings.innerHTML = ''; 
+            const filteredData = data.filter(career => career.category === type);
+            
+            if (filteredData.length === 0) {
+                pageListings.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-mid);">No open ${type.toLowerCase()} positions at the moment. Please check back later!</p>`;
+                return;
+            }
+
+            filteredData.forEach(career => {
+                const card = document.createElement('div');
+                card.className = 'career-card';
+                card.innerHTML = `
+                    <h4>${career.title}</h4>
+                    <p>${career.description}</p>
+                    <p><strong>Requirements:</strong> ${career.requirements}</p>
+                    ${career.experience ? `<p><strong>Experience:</strong> ${career.experience}</p>` : ''}
+                    <div class="admin-controls top-right" style="display:${isAdminLoggedIn ? 'flex' : 'none'};">
+                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+                    </div>
+                    <button class="apply-now-btn">Apply Now</button>`;
+                pageListings.appendChild(card);
+                
+                card.querySelector('.apply-now-btn').addEventListener('click', () => openApplicationModal(career.title));
+                card.querySelector('.edit-btn').addEventListener('click', () => openCareerModal(career));
+                card.querySelector('.delete-btn').addEventListener('click', () => handleDelete(career.id, 'career posting', 'careers'));
+            });
+        }
     }
 
     // --- MODAL & FORM LOGIC ---

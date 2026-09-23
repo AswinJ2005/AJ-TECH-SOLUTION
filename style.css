@@ -489,6 +489,57 @@ body.light-theme .footer-logo {
     letter-spacing: 0.5px;
 }
 
+/* --- Careers Nav Cards --- */
+.career-nav-card {
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.career-nav-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px var(--border-glow);
+    border-color: var(--primary-blue);
+}
+
+.career-nav-card i {
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+}
+
+.career-nav-card h3 {
+    color: var(--primary-blue);
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.career-nav-card p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.career-nav-card .cta-text {
+    color: var(--primary-blue);
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.career-nav-card:hover .cta-text {
+    text-shadow: 0 0 10px var(--primary-blue);
+}
+
 /* Add subtle pulse animation to Apply buttons */
 @keyframes pulse {
     0% { transform: scale(1); }

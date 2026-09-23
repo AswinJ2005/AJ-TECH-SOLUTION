@@ -45,15 +45,15 @@
     <!-- Header -->
     <header class="navbar">
         <div class="nav-container">
-            <a href="#hero" class="nav-logo"><img src="assets/logo.png" alt="AJ Tech Solutions Logo"></a>
+            <a href="index.html#hero" class="nav-logo"><img src="assets/logo.png" alt="AJ Tech Solutions Logo"></a>
             <nav class="nav-menu">
                 <ul>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#team" class="nav-link">Team</a></li>
-                    <li><a href="#project" class="nav-link">Project</a></li>
-                    <li><a href="#careers" class="nav-link">Careers</a></li>
-                    <li><a href="#contact" class="nav-link cta-contact">Contact</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#team" class="nav-link">Team</a></li>
+                    <li><a href="index.html#project" class="nav-link">Project</a></li>
+                    <li><a href="index.html#careers" class="nav-link">Careers</a></li>
+                    <li><a href="index.html#contact" class="nav-link cta-contact">Contact</a></li>
                     <li><button id="book-consultation-btn-nav" class="nav-link cta-book">Book Free Consultation</button></li>
                     <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode">
                         <i class="fas fa-sun"></i>
@@ -65,163 +65,20 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero">
-            <div class="hero-content">
-                <h1 class="hero-headline">Building the Unbuilt Future</h1>
-                <p class="hero-subheadline">We help startups and businesses thrive with expert Web Development, AI-driven solutions, and scalable Cloud infrastructure.</p>
-                <div class="hero-cta-group">
-                    <a href="#contact" class="cta-button primary">Start Your Project</a>
-                    <a href="#project" class="cta-button secondary">See Our Work</a>
-                    <a href="#contact" class="cta-button tertiary">Get in Touch</a>
-                </div>
-            </div>
-            <a href="#about" class="scroll-down-indicator" aria-label="Scroll down"><i class="fa-solid fa-chevron-down"></i></a>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="content-section">
-            <div class="container animate-on-scroll">
-                <div class="section-title-wrapper">
-                    <h2 class="section-title">Why Choose Us?</h2>
-                    <button id="add-why-us-btn" class="admin-button" title="Add New Reason" style="display: none;">+</button>
-                </div>
-                <div id="why-choose-us-grid" class="interactive-grid"></div>
-            </div>
-        </section>
-        
-        <!-- Founder Section -->
-        <section id="founder" class="content-section">
-            <div class="container">
-                <div class="founder-section" style="position: relative;">
-                    <div class="admin-controls" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: none;">
-                        <button id="edit-founder-btn" class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                    </div>
-                    <div class="interactive-box founder-image-container tilt-element animate-on-scroll" data-delay="0">
-                        <img id="founder-photo-el" src="assets/founder-photo.jpg" alt="Founder & CEO" class="founder-photo">
-                    </div>
-                    <div class="interactive-box founder-bio tilt-element animate-on-scroll" data-delay="200">
-                        <h2 class="section-title">About the Founder</h2>
-                        <h3 id="founder-title-el">Aswin J - Founder & CEO</h3>
-                        <p id="founder-p1-el">I'm Aswin J, the founder of AJ Tech Solutions, from Thammathukonam, Nagercoil, Kanyakumari District, Tamil Nadu. I'm currently pursuing my B.Tech in Artificial Intelligence and Data Science at St. Joseph's College of Engineering, Chennai, graduating in 2027.</p>
-                        <p id="founder-p2-el">With a passion for technology and innovation, I started AJ Tech Solutions to help startups and businesses build smarter solutions using Web Development, AI/ML, and Cloud Computing.</p>
-                        <blockquote class="founder-quote" id="founder-quote-el">"Every idea deserves the right technology to grow and succeed."</blockquote>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Team Section -->
-        <section id="team" class="content-section">
-            <div class="container">
-                <div class="section-title-wrapper"><h2 class="section-title">Our Core Team</h2><button id="add-member-btn" class="admin-button" title="Add New Team Member" style="display: none;">+</button></div>
-                <div id="team-grid" class="team-grid-layout"></div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="content-section">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Core Services</h2>
-                <div class="interactive-grid">
-                    <div class="interactive-box tilt-element animate-on-scroll"><i class="fas fa-cubes"></i><h4>Web & App Development</h4><p>We design and develop modern websites and mobile apps tailored to your brand and audience. Our solutions are user-friendly, fast, and fully responsive across devices. Whether it’s a business site or a custom application, we bring your ideas to life.</p></div>
-                    <div class="interactive-box tilt-element animate-on-scroll" data-delay="100"><i class="fas fa-brain"></i><h4>AI/ML Solutions</h4><p>We create AI and Machine Learning solutions that help businesses automate, predict, and optimize. From chatbots to data analysis tools, we harness AI to unlock new opportunities. Our goal is to make advanced technology accessible and impactful.</p></div>
-                    <div class="interactive-box tilt-element animate-on-scroll" data-delay="200"><i class="fas fa-cloud"></i><h4>Cloud & DevOps</h4><p>We set up secure, scalable cloud infrastructure on platforms like AWS and Azure. Our DevOps expertise ensures smooth CI/CD pipelines, faster deployments, and reliable services. We help businesses operate efficiently in the cloud with best practices and automation.</p></div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Tech Stack Section -->
-        <section id="tech-stack" class="content-section">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Our Tech Stack</h2>
-                <p class="section-subtitle animate-on-scroll">We use modern, reliable technologies to build scalable and high-performance solutions.</p>
-                <div class="tech-stack-grid animate-on-scroll" data-delay="200">
-                    <!-- First Row -->
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><span>JavaScript</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"><span>Java</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"><span>HTML5</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"><span>CSS3</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"><span>React</span></div>
-                    
-                    <!-- Second Row -->
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"><span>Node.js</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL"><span>MySQL</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS"><span>AWS</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure"><span>Azure</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP"><span>Google Cloud</span></div>
-                    <div class="tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"><span>Docker</span></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Project Section -->
-        <section id="project" class="content-section">
-            <div class="container">
-                <div class="section-title-wrapper"><h2 class="section-title animate-on-scroll">Project</h2><button id="add-project-btn" class="admin-button" title="Add New Project" style="display: none;">+</button></div>
-                <div id="project-grid" class="interactive-grid"></div>
-            </div>
-        </section>
-        
         <!-- Careers Section -->
-        <section id="careers" class="content-section">
+        <section id="careers-page" class="content-section" style="min-height: 80vh; padding-top: 120px;">
             <div class="container">
-                <h2 class="section-title animate-on-scroll">Join Our Team</h2>
-                <div class="careers-nav-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                    <a href="careers.html?type=Job" class="career-nav-card">
-                        <div class="career-nav-content">
-                            <i class="fas fa-briefcase fa-3x"></i>
-                            <h3>Job Opportunities</h3>
-                            <p>Explore full-time positions and join our core team to build the unbuilt future.</p>
-                            <span class="cta-text">View Jobs <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
-                    <a href="careers.html?type=Internship" class="career-nav-card">
-                        <div class="career-nav-content">
-                            <i class="fas fa-graduation-cap fa-3x"></i>
-                            <h3>Internship Opportunities</h3>
-                            <p>Kickstart your career with hands-on experience on cutting-edge projects.</p>
-                            <span class="cta-text">View Internships <i class="fas fa-arrow-right"></i></span>
-                        </div>
-                    </a>
+                <a href="index.html#careers" class="back-link" style="display:inline-block; margin-bottom: 2rem; color: var(--text-mid); text-decoration: none;"><i class="fas fa-arrow-left"></i> Back to Careers</a>
+                <div class="section-title-wrapper" style="justify-content: center; margin-bottom: 3rem;">
+                    <h2 class="section-title animate-on-scroll" id="careers-page-title" style="margin-bottom: 0;">Open Positions</h2>
+                    <button class="admin-button add-career-btn" id="page-add-career-btn" style="display: none; margin-left: 20px;">+</button>
+                </div>
+                
+                <div id="careers-page-listings" class="career-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+                    <!-- Listings injected by JS -->
                 </div>
             </div>
         </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="content-section">
-            <div class="container">
-                <h2 class="section-title animate-on-scroll">Let's Build Together</h2>
-                <div class="contact-grid">
-                    <form id="contact-form" class="contact-form animate-on-scroll" data-delay="200">
-                        <div class="form-feedback"></div>
-                        <div class="form-row"><input type="text" name="name" placeholder="Your Name" required><input type="email" name="email" placeholder="Your Email" required></div>
-                        <div class="form-row"><input type="tel" name="phone" placeholder="Phone Number (Optional)"><select name="project-type" required><option value="" disabled selected>Select Project Type</option><option>Web Development</option><option>AI/ML Solution</option><option>Cloud & DevOps</option><option>Other</option></select></div>
-                        <textarea name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
-                        <button type="submit" class="cta-button primary">Send Message</button>
-                    </form>
-                    <div class="contact-info-block animate-on-scroll" data-delay="400">
-                        <h3>Contact Details</h3>
-                        <ul>
-                            <li><a href="mailto:info.ajtechsolutions@gmail.com"><i class="fas fa-envelope"></i><span>info.ajtechsolutions@gmail.com</span></a></li>
-                            <li><a href="tel:+919363665235"><i class="fas fa-phone"></i><span>+91 93636 65235</span></a></li>
-                        </ul>
-                        <div class="social-contact">
-                            <a href="https://wa.me/919363665235" target="_blank" class="social-button whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-                            <a href="https://www.instagram.com/aj.tech.solutions?igsh=amoxcTR3MW9lZWYy" target="_blank" class="social-button instagram"><i class="fab fa-instagram"></i> Message on Instagram</a>
-                            <div class="service-availability-card">
-                                <center><h3>Service Availability</h3> </center>
-                                <p>📍 <strong>Kanyakumari & Chennai</strong> — Available for face-to-face meetings in public spaces like malls, cafe's, and hotels.</p>
-                                <p>🌐 <strong>Online</strong> — Available & Working with clients across India and worldwide.</p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -233,7 +90,7 @@
                 </div>
                 <div class="footer-links">
                     <h4>Quick Links</h4>
-                    <ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#project">Project</a></li><li><a href="#contact">Contact</a></li></ul>
+                    <ul><li><a href="index.html#about">About</a></li><li><a href="index.html#services">Services</a></li><li><a href="index.html#project">Project</a></li><li><a href="index.html#contact">Contact</a></li></ul>
                 </div>
                 <div class="footer-social">
                     <h4>Connect</h4>
@@ -277,7 +134,7 @@
                 <input type="password" id="login-password" placeholder="Password" required>
                 <button type="submit">Login</button>
             </form>
-            <a href="#" id="forgot-password-link">Forgot Password?</a>
+            <a href="index.html#" id="forgot-password-link">Forgot Password?</a>
         </div>
         
         <div class="modal" id="forgot-password-modal">
@@ -388,7 +245,7 @@
 
     </div>
     
-    <a href="#hero" id="back-to-top" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+    <a href="index.html#hero" id="back-to-top" class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
     
     <!-- External Libraries (Legacy Scripts) -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
