@@ -41,6 +41,23 @@
     <div class="cursor-outline"></div>
     <div id="particles-js"></div>
 
+    <!-- Founder Modal -->
+    <div id="founder-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Edit Founder Info</h2>
+            <form id="founder-form">
+                <div class="form-feedback"></div>
+                <label for="founder-title">Name & Title</label><input type="text" id="founder-title" required>
+                <label for="founder-p1">Paragraph 1</label><textarea id="founder-p1" rows="4" required></textarea>
+                <label for="founder-p2">Paragraph 2</label><textarea id="founder-p2" rows="4" required></textarea>
+                <label for="founder-quote">Quote</label><input type="text" id="founder-quote" required>
+                <label for="founder-photo-url">Photo URL</label><input type="url" id="founder-photo-url">
+                <button type="submit">Save Founder Info</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="navbar">
         <div class="nav-container">
@@ -92,16 +109,19 @@
         <!-- Founder Section -->
         <section id="founder" class="content-section">
             <div class="container">
-                <div class="founder-content-wrapper">
-                    <div class="founder-photo-container animate-on-scroll">
-                        <img src="assets/founder-photo.jpg" alt="Aswin J, Founder & CEO" class="founder-photo">
+                <div class="founder-section" style="position: relative;">
+                    <div class="admin-controls" style="position: absolute; top: 10px; right: 10px; z-index: 10; display: none;">
+                        <button id="edit-founder-btn" class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                    </div>
+                    <div class="interactive-box founder-image-container tilt-element animate-on-scroll" data-delay="0">
+                        <img id="founder-photo-el" src="assets/founder-photo.jpg" alt="Founder & CEO" class="founder-photo">
                     </div>
                     <div class="interactive-box founder-bio tilt-element animate-on-scroll" data-delay="200">
                         <h2 class="section-title">About the Founder</h2>
-                        <h3>Aswin J — Founder & CEO</h3>
-                        <p>I’m Aswin J, the founder of AJ Tech Solutions, from Thammathukonam, Nagercoil, Kanyakumari District, Tamil Nadu. I’m currently pursuing my B.Tech in Artificial Intelligence and Data Science at St. Joseph's College of Engineering, Chennai, graduating in 2027.</p>
-                        <p>With a passion for technology and innovation, I started AJ Tech Solutions to help startups and businesses build smarter solutions using Web Development, AI/ML, and Cloud Computing.</p>
-                        <blockquote class="founder-quote">“Every idea deserves the right technology to grow and succeed.”</blockquote>
+                        <h3 id="founder-title-el">Aswin J - Founder & CEO</h3>
+                        <p id="founder-p1-el">I'm Aswin J, the founder of AJ Tech Solutions, from Thammathukonam, Nagercoil, Kanyakumari District, Tamil Nadu. I'm currently pursuing my B.Tech in Artificial Intelligence and Data Science at St. Joseph's College of Engineering, Chennai, graduating in 2027.</p>
+                        <p id="founder-p2-el">With a passion for technology and innovation, I started AJ Tech Solutions to help startups and businesses build smarter solutions using Web Development, AI/ML, and Cloud Computing.</p>
+                        <blockquote class="founder-quote" id="founder-quote-el">"Every idea deserves the right technology to grow and succeed."</blockquote>
                     </div>
                 </div>
             </div>

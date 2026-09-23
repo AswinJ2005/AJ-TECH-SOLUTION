@@ -104,6 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const whyUsForm = document.getElementById('why-us-form');
         if (whyUsForm) whyUsForm.addEventListener('submit', handleSaveWhyUs);
 
+        const founderForm = document.getElementById('founder-form');
+        if (founderForm) founderForm.addEventListener('submit', handleSaveFounderInfo);
+
+        const editFounderBtn = document.getElementById('edit-founder-btn');
+        if (editFounderBtn) editFounderBtn.addEventListener('click', openFounderModal);
+
         const teamForm = document.getElementById('team-form');
         if (teamForm) teamForm.addEventListener('submit', handleSaveTeamMember);
 
@@ -208,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
             db.collection(collection).onSnapshot(snapshot => {
                 const data = [];
                 snapshot.forEach(doc => {
-                    if (doc.id !== 'uiConfig') data.push({ ...doc.data(), id: doc.id });
+                    if (doc.id !== 'uiConfig' && doc.id !== 'founderInfo') data.push({ ...doc.data(), id: doc.id });
                 });
                 data.sort((a, b) => (a.order || 0) - (b.order || 0));
                 renderFunction(data);
@@ -219,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         db.collection(collection).orderBy(orderByField).onSnapshot(snapshot => {
             const data = [];
             snapshot.forEach(doc => {
-                if (doc.id !== 'uiConfig') data.push({ ...doc.data(), id: doc.id });
+                if (doc.id !== 'uiConfig' && doc.id !== 'founderInfo') data.push({ ...doc.data(), id: doc.id });
             });
             renderFunction(data);
         }, error => console.error(`Error loading ${collection}:`, error));
@@ -502,6 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadDynamicSection('team', 'client-order', renderTeam);
             loadDynamicSection('projects', 'title', renderProjects);
             loadDynamicSection('careers', 'title', renderCareers);
+            loadFounderInfo();
         });
     }
 
@@ -727,6 +734,48 @@ document.addEventListener('click', function(e) {
             showFormFeedback(form, `Error: ${err.message}`, true); 
         } 
     };
+
+    let founderData = null;
+
+    function loadFounderInfo() {
+        if (!db) return;
+        db.collection('projects').doc('founderInfo').onSnapshot(doc => {
+            if (doc.exists) {
+                founderData = doc.data();
+                document.getElementById('founder-title-el').innerText = founderData.title || '';
+                document.getElementById('founder-p1-el').innerText = founderData.p1 || '';
+                document.getElementById('founder-p2-el').innerText = founderData.p2 || '';
+                document.getElementById('founder-quote-el').innerText = founderData.quote || '';
+                if (founderData.photoUrl) {
+                    document.getElementById('founder-photo-el').src = founderData.photoUrl;
+                }
+            }
+        }, err => console.error("Error loading founder info:", err));
+    }
+
+    function openFounderModal() {
+        if (founderData) {
+            document.getElementById('founder-title').value = founderData.title || '';
+            document.getElementById('founder-p1').value = founderData.p1 || '';
+            document.getElementById('founder-p2').value = founderData.p2 || '';
+            document.getElementById('founder-quote').value = founderData.quote || '';
+            document.getElementById('founder-photo-url').value = founderData.photoUrl || '';
+        }
+        openModal('founder-modal');
+    }
+
+    function handleSaveFounderInfo(e) {
+        e.preventDefault();
+        const data = {
+            id: 'founderInfo',
+            title: document.getElementById('founder-title').value,
+            p1: document.getElementById('founder-p1').value,
+            p2: document.getElementById('founder-p2').value,
+            quote: document.getElementById('founder-quote').value,
+            photoUrl: document.getElementById('founder-photo-url').value
+        };
+        handleSave(e, 'projects', data);
+    }
 
     function handleSaveWhyUs(e) { 
         handleSave(e, 'whyChooseUs', {
