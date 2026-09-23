@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.firestore();
+                window.db = db;
                 auth = firebase.auth();
                 monitorAuthState();
                 monitorUIVersion();
