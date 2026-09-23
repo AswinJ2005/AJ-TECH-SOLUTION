@@ -1319,24 +1319,18 @@ document.addEventListener('click', function(e) {
         // ...existing code...
     });
 
-    const clientImageCount = document.getElementById('project-client-image-count');
-    if (clientImageCount) {
-        clientImageCount.addEventListener('input', (e) => {
+    document.addEventListener('input', (e) => {
+        if (e.target.id === 'project-client-image-count') {
             const count = parseInt(e.target.value) || 0;
             const existingInputs = document.querySelectorAll('#client-gallery-inputs-container .gallery-input');
             const existingUrls = Array.from(existingInputs).map(input => input.value);
             generateGalleryInputs(count, 'client-gallery-inputs-container', existingUrls, 'Client Image');
-        });
-    }
-
-    const adminImageCount = document.getElementById('project-admin-image-count');
-    if (adminImageCount) {
-        adminImageCount.addEventListener('input', (e) => {
+        } else if (e.target.id === 'project-admin-image-count') {
             const count = parseInt(e.target.value) || 0;
             const existingInputs = document.querySelectorAll('#admin-gallery-inputs-container .gallery-input');
             const existingUrls = Array.from(existingInputs).map(input => input.value);
             generateGalleryInputs(count, 'admin-gallery-inputs-container', existingUrls, 'Admin Image');
-        });
-    }
+        }
+    });
 
 }); // Close DOMContentLoaded event listener
