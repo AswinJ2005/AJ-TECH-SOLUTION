@@ -335,11 +335,11 @@
                 <label for="project-image-url">Image URL</label><input type="url" id="project-image-url">
                 <label for="project-link">Project Link (Optional)</label><input type="url" id="project-link">
                 <label for="project-admin-link">Admin Link (Optional)</label><input type="url" id="project-admin-link">
-                <label>Gallery Images (Optional, for 2x2 grid)</label>
-                <input type="url" id="project-gallery-1" placeholder="Image 1 URL">
-                <input type="url" id="project-gallery-2" placeholder="Image 2 URL">
-                <input type="url" id="project-gallery-3" placeholder="Image 3 URL">
-                <input type="url" id="project-gallery-4" placeholder="Image 4 URL">
+                <label for="project-grid-size">Grid Columns (e.g. 2, 3, 4)</label>
+                <input type="number" id="project-grid-size" min="1" max="6" value="2">
+                <label for="project-image-count">Number of Gallery Images</label>
+                <input type="number" id="project-image-count" min="0" max="20" value="0">
+                <div id="gallery-inputs-container" style="display:flex; flex-direction:column; gap:10px;"></div>
                 <label for="project-description">Description</label><textarea id="project-description" rows="4" required></textarea>
                 <button type="submit">Save Project</button>
             </form>

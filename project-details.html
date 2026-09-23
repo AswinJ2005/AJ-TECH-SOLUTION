@@ -299,6 +299,8 @@
                         const galleryContainer = document.getElementById('pd-gallery');
                         galleryContainer.innerHTML = '';
                         if (data.galleryImages && data.galleryImages.length > 0) {
+                            const columns = data.gridSize || 2;
+                            galleryContainer.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
                             data.galleryImages.forEach(url => {
                                 galleryContainer.innerHTML += `<img src="${url}" alt="Project Gallery Image">`;
                             });

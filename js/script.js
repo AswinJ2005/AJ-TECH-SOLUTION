@@ -464,12 +464,14 @@ document.addEventListener('DOMContentLoaded', () => {
             'project-image-url': data.imageUrl,
             'project-link': data.projectLink,
             'project-admin-link': data.adminLink,
-            'project-gallery-1': (data.galleryImages && data.galleryImages[0]) ? data.galleryImages[0] : '',
-            'project-gallery-2': (data.galleryImages && data.galleryImages[1]) ? data.galleryImages[1] : '',
-            'project-gallery-3': (data.galleryImages && data.galleryImages[2]) ? data.galleryImages[2] : '',
-            'project-gallery-4': (data.galleryImages && data.galleryImages[3]) ? data.galleryImages[3] : '',
+            'project-grid-size': data.gridSize || 2,
+            'project-image-count': data.galleryImages ? data.galleryImages.length : 0,
             'project-description': data.description 
-        } : {}); 
+        } : {
+            'project-grid-size': 2,
+            'project-image-count': 0
+        }); 
+        generateGalleryInputs(data && data.galleryImages ? data.galleryImages.length : 0, data ? data.galleryImages : []);
         document.getElementById('project-modal-title').innerText = data ? 'Edit Project' : 'Add Project'; 
         openModal('project-modal');
     }
@@ -805,12 +807,19 @@ document.addEventListener('click', function(e) {
         }); 
     }
 
+    function generateGalleryInputs(count, existingUrls = []) {
+        const container = document.getElementById('gallery-inputs-container');
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+            const val = existingUrls[i] || '';
+            container.innerHTML += `<input type="url" class="gallery-input" placeholder="Image ${i + 1} URL" value="${val}">`;
+        }
+    }
+
     function handleSaveProject(e) { 
-        const g1 = document.getElementById('project-gallery-1').value;
-        const g2 = document.getElementById('project-gallery-2').value;
-        const g3 = document.getElementById('project-gallery-3').value;
-        const g4 = document.getElementById('project-gallery-4').value;
-        const galleryImages = [g1, g2, g3, g4].filter(url => url.trim() !== '');
+        const galleryInputs = document.querySelectorAll('#gallery-inputs-container .gallery-input');
+        const galleryImages = Array.from(galleryInputs).map(input => input.value).filter(url => url.trim() !== '');
         
         handleSave(e, 'projects', { 
             id: document.getElementById('project-id').value, 
@@ -818,6 +827,7 @@ document.addEventListener('click', function(e) {
             imageUrl: document.getElementById('project-image-url').value, 
             projectLink: document.getElementById('project-link').value, 
             adminLink: document.getElementById('project-admin-link').value,
+            gridSize: parseInt(document.getElementById('project-grid-size').value) || 2,
             galleryImages: galleryImages,
             description: document.getElementById('project-description').value 
         }); 
@@ -1280,5 +1290,15 @@ document.addEventListener('click', function(e) {
         
         // ...existing code...
     });
+
+    const projectImageCount = document.getElementById('project-image-count');
+    if (projectImageCount) {
+        projectImageCount.addEventListener('input', (e) => {
+            const count = parseInt(e.target.value) || 0;
+            const existingInputs = document.querySelectorAll('#gallery-inputs-container .gallery-input');
+            const existingUrls = Array.from(existingInputs).map(input => input.value);
+            generateGalleryInputs(count, existingUrls);
+        });
+    }
 
 }); // Close DOMContentLoaded event listener
